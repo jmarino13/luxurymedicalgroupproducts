@@ -131,6 +131,34 @@
       opacity: 0.85;
       margin-top: 12px;
     }
+    /* Compliance Acknowledgment */
+.compliance{
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(184,154,90,0.12);
+  border: 1px solid var(--lmg-border);
+}
+
+.compliance-box{
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.compliance-box input{
+  margin-top: 3px;
+  transform: scale(1.15);
+}
+
+.compliance-box a{
+  color: var(--lmg-gold);
+  text-decoration: underline;
+}
+
   </style>
 </head>
 
@@ -199,6 +227,14 @@
 
     const qs = (k) => new URLSearchParams(window.location.search).get(k);
     const isMobile = () => /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+function openCompliance(){
+  alert(
+    "Peptide Compliance Disclosure:\n\n" +
+    "All peptides and related materials are provided for research and educational purposes only. " +
+    "They are not intended to diagnose, treat, cure, or prevent any disease. " +
+    "Any dosing or usage references are general guidelines only and do not constitute medical advice."
+  );
+}
 
     function setCampaignPill(){
       const source = qs("utm_source");
@@ -232,8 +268,26 @@
         const pdfUrl = chosen.file;
         const viewUrl = pdfUrl + "#view=FitH&zoom=page-width";
 
-        openBtn.href = pdfUrl;
-        dlBtn.href = pdfUrl;
+       function requireCompliance(action){
+  const box = document.getElementById("complianceCheck");
+  if (!box || !box.checked) {
+    alert("Please acknowledge the compliance disclosure before proceeding.");
+    return false;
+  }
+  return true;
+}
+
+openBtn.onclick = (e) => {
+  if (!requireCompliance()) e.preventDefault();
+};
+
+dlBtn.onclick = (e) => {
+  if (!requireCompliance()) e.preventDefault();
+};
+
+openBtn.href = pdfUrl;
+dlBtn.href = pdfUrl;
+
         frame.src = viewUrl;
 
         const url = new URL(window.location.href);
