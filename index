@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Luxury Medical Group | Documents</title>
+  <meta name="robots" content="noindex,nofollow" />
+
+  <style>
+    :root{
+      /* LMG palette — tweak to match your updated PDF/logo */
+      --lmg-gold: #b89a5a;
+      --lmg-gold-2: #8a6f3b;
+      --lmg-bg: #020617;         /* deep navy */
+      --lmg-surface: rgba(255,255,255,0.06);
+      --lmg-surface-2: rgba(255,255,255,0.10);
+      --lmg-border: rgba(184,154,90,0.30);
+      --lmg-text: #f9fafb;
+      --shadow: 0 18px 55px rgba(0,0,0,0.45);
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 20% 0%, rgba(184,154,90,0.20), transparent 60%),
+        radial-gradient(900px 500px at 90% 20%, rgba(0,0,0,0.40), transparent 60%),
+        var(--lmg-bg);
+      color: var(--lmg-text);
+    }
+
+    .wrap{ max-width: 1080px; margin: 0 auto; padding: 12px; }
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; flex-wrap:wrap; padding: 8px 4px 10px;
+    }
+
+    .brand{ display:flex; align-items:center; gap:12px; min-width:240px; }
+    .brand img{
+      width: 54px; height: 54px; object-fit: contain;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--lmg-border);
+      padding: 8px;
+    }
+    .brand h1{ margin:0; font-size: 20px; letter-spacing: 0.4px; }
+    .brand .sub{ margin-top:3px; font-size:13px; opacity:.85; }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 10px 12px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--lmg-border);
+      font-size: 13px; opacity: .95;
+      color: var(--lmg-text);
+    }
+
+    .card{
+      background: linear-gradient(180deg, var(--lmg-surface-2), var(--lmg-surface));
+      border: 1px solid var(--lmg-border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 12px;
+    }
+
+    .row{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; flex-wrap:wrap;
+    }
+
+    .controls{
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap; width: 100%;
+    }
+
+    select{
+      background: rgba(255,255,255,0.06);
+      color: var(--lmg-text);
+      border: 1px solid var(--lmg-border);
+      border-radius: 14px;
+      padding: 12px 12px;
+      font-size: 14px;
+      outline: none;
+      min-width: 260px;
+    }
+    option{ color:#111; }
+
+    .btns{ display:flex; gap:10px; flex-wrap:wrap; }
+
+    a.btn, button.btn{
+      cursor:pointer;
+      border: 1px solid var(--lmg-border);
+      background: rgba(184,154,90,0.16);
+      color: var(--lmg-text);
+      padding: 12px 14px;
+      border-radius: 14px;
+      text-decoration:none;
+      font-size: 14px;
+      transition: transform .08s ease, background .2s ease;
+    }
+    a.btn.primary, button.btn.primary{
+      background: rgba(184,154,90,0.22);
+    }
+    a.btn:hover, button.btn:hover{
+      transform: translateY(-1px);
+      background: rgba(184,154,90,0.26);
+    }
+
+    .hint{ font-size: 13px; opacity: 0.9; margin-top: 8px; line-height: 1.35; }
+
+    .viewer{
+      margin-top: 6px;
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid var(--lmg-border);
+      background: rgba(0,0,0,0.25);
+    }
+
+    iframe{
+      width: 100%;
+      height: calc(100vh - 260px);
+      min-height: 640px;
+      border: 0;
+      display:block;
+    }
+
+    .footer{
+      text-align:center;
+      font-size: 12px;
+      opacity: 0.85;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/lmg-logo.png" alt="Luxury Medical Group logo" />
+        <div>
+          <h1>Luxury Medical Group</h1>
+          <div class="sub">Scan → View → Download</div>
+        </div>
+      </div>
+
+      <div class="pill" id="campaignPill">QR Landing Page</div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div style="min-width:240px;">
+          <div style="font-size:16px; font-weight:600;">Documents</div>
+          <div class="hint">Select a document, then open or download. On mobile, we’ll automatically open the PDF for the best experience.</div>
+        </div>
+
+        <div class="controls">
+          <select id="docSelect" aria-label="Choose document"></select>
+
+          <div class="btns">
+            <a id="openBtn" class="btn primary" href="#" target="_blank" rel="noopener">Open PDF</a>
+            <a id="downloadBtn" class="btn" href="#" download>Download</a>
+            <button id="copyLinkBtn" class="btn" type="button">Copy Link</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="viewer">
+        <iframe id="pdfFrame" src="" title="Luxury Medical Group PDF"></iframe>
+      </div>
+
+      <div class="footer">
+        © Luxury Medical Group • Keep the QR pointed here so you can swap PDFs anytime.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DOCS = [
+      { id: "product", name: "LMG Product Sheet", file: "pdf/lmg-product-sheet.pdf" },
+      // Add more PDFs below if you want:
+      // { id: "pricing", name: "LMG Pricing Sheet", file: "pdf/lmg-pricing-sheet.pdf" },
+    ];
+
+    const qs = (k) => new URLSearchParams(window.location.search).get(k);
+    const isMobile = () => /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+
+    function setCampaignPill(){
+      const source = qs("utm_source");
+      const campaign = qs("utm_campaign");
+      const pill = document.getElementById("campaignPill");
+      pill.textContent = (source || campaign)
+        ? `Campaign: ${campaign || "—"} • Source: ${source || "—"}`
+        : "QR Landing Page";
+    }
+
+    function initDocs(){
+      const select = document.getElementById("docSelect");
+      const frame  = document.getElementById("pdfFrame");
+      const openBtn = document.getElementById("openBtn");
+      const dlBtn = document.getElementById("downloadBtn");
+      const copyBtn = document.getElementById("copyLinkBtn");
+
+      const desired = qs("doc");
+      const doc = DOCS.find(d => d.id === desired) || DOCS[0];
+
+      DOCS.forEach(d => {
+        const opt = document.createElement("option");
+        opt.value = d.id;
+        opt.textContent = d.name;
+        select.appendChild(opt);
+      });
+      select.value = doc.id;
+
+      function setDocById(id){
+        const chosen = DOCS.find(d=>d.id===id) || DOCS[0];
+        const pdfUrl = chosen.file;
+        const viewUrl = pdfUrl + "#view=FitH&zoom=page-width";
+
+        openBtn.href = pdfUrl;
+        dlBtn.href = pdfUrl;
+        frame.src = viewUrl;
+
+        const url = new URL(window.location.href);
+        url.searchParams.set("doc", chosen.id);
+        window.history.replaceState({}, "", url.toString());
+      }
+
+      setDocById(doc.id);
+
+      select.addEventListener("change", () => setDocById(select.value));
+
+      copyBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          copyBtn.textContent = "Copied!";
+          setTimeout(()=> copyBtn.textContent="Copy Link", 1200);
+        } catch(e) {
+          alert("Copy failed. Please copy the URL from the address bar.");
+        }
+      });
+
+      // Mobile auto-open to PDF (best UX)
+      if (isMobile()) {
+        if (!sessionStorage.getItem("lmg_mobile_opened")) {
+          sessionStorage.setItem("lmg_mobile_opened", "1");
+          window.location.href = openBtn.href;
+        }
+      }
+    }
+
+    setCampaignPill();
+    initDocs();
+  </script>
+</body>
+</html>
